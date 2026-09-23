@@ -28,9 +28,9 @@
 
 >Este texto está destacado.
 
-| Práctica | Fecha | Estado |
+| Futbolista | Fecha | Goles |
 |------------|-------------|-------------|
-| Práctica 1 | 10/09/2026 | Terminada |
-| Práctica 2 | 17/09/2026 | En progreso 
+| Messi | 23/09/2026 | 930 |
+| Cristiano | 23/09/2026 | 979
 
 --- esto son separadores
