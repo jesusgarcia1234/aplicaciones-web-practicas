@@ -22,7 +22,7 @@
 
 ![Imagen del logo de aules] (https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF86HyUQ9szGPa3LYo2Bu3IgGJNj8YJAu5SzZWFwFEoQ&s=10)
 
-![Captura de mi proyecto] (/home/mati/Imatges/Github.png)
+![Captura de mi proyecto] ([/home/mati/Imatges/Github.png](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdKM50n7N2JRng8heUqLzKd9MYzsj576PFBsNTqXaMTw&s=10))
 
 `este texto esta centrado`.
 
