@@ -23,3 +23,14 @@
 ![Imagen del logo de aules] (https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF86HyUQ9szGPa3LYo2Bu3IgGJNj8YJAu5SzZWFwFEoQ&s=10)
 
 ![Captura de mi proyecto] (/home/mati/Imatges/Github.png)
+
+'Este texto está centrado'
+
+>Este texto está destacado.
+
+| Práctica | Fecha | Estado |
+|------------|-------------|-------------|
+| Práctica 1 | 10/09/2026 | Terminada |
+| Práctica 2 | 17/09/2026 | En progreso 
+
+--- esto son separadores
