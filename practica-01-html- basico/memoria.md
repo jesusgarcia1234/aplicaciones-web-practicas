@@ -24,7 +24,7 @@
 
 ![Captura de mi proyecto] (/home/mati/Imatges/Github.png)
 
-'Este texto está centrado'
+`este texto esta centrado`.
 
 >Este texto está destacado.
 
