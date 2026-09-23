@@ -1,6 +1,6 @@
 «Añadida memoria práctica 1»
 
-<Aquí voy a probar las funciones de títulos y listas o enlaces que se pueden hacer
+<Aquí voy a probar las funciones de títulos y listas o enlaces que se pueden hacer.
 
 # ESTO ES UN TITULO DE TIPO 1
 ## ESTO ES UN TITULO DE NIVEL 2
