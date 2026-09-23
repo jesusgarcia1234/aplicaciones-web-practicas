@@ -9,4 +9,4 @@ Repositorio donde publicaré todas mis prácticas para el módulo de Aplicacione
 |----|----------------------------|----------------------------------------------
 --------|
 | 1 | Introducción a HTML básico | [Ver
-memoria](practica-01-html- basico/memoria.md) |
+memoria]() |
