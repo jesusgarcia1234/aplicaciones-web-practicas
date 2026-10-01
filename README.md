@@ -7,3 +7,4 @@ Repositorio donde publicaré todas mis prácticas para el módulo de Aplicacione
 | Nº | Práctica | Memoria|
 |----|----------------------------|------------------------------------------------------|
 | 1 | Introducción a HTML básico | [Ver memoria](https://github.com/jesusgarcia1234/aplicaciones-web-practicas/blob/main/practica-01-html-%20basico/memoria.md) |
+| 1 |  Instalación, configuración y securización de Apache | [Ver memoria](https://github.com/jesusgarcia1234/aplicaciones-web-practicas/blob/main/apache/practica-apache.md) |
