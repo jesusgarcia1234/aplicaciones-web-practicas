@@ -52,7 +52,7 @@ apt-cache depends apache2
 ```
 ![Dependencias de Apache](./Imagenes/Captura%20002%20aplicaciones.png)
 
-**¿Qué paquetes adicionales se instalaron?**
+**❓¿Qué paquetes adicionales se instalaron?**
 
 Para verlos usamos este comando:
 ```bash
