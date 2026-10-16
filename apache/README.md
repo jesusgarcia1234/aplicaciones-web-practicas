@@ -3,6 +3,23 @@
 **Alumno:** Jesús García Ibáñez  
 **Curso:** 2.º SMX  
 **Fecha:** 16-10-26
+
+## Índice
+
+1. [Preparación del sistema](#apartado-1-preparación-del-sistema)
+2. [Instalación de Apache](#apartado-2-instalación-de-apache)
+3. [Comprobación del funcionamiento](#apartado-3-comprobación-del-funcionamiento)
+4. [Comandos principales de administración](#apartado-4-comandos-principales-de-administración)
+5. [Ficheros y directorios importantes](#apartado-5-ficheros-y-directorios-importantes)
+6. [Modificaciones típicas del servicio](#apartado-6-modificaciones-típicas-del-servicio)
+7. [Módulos de Apache](#apartado-7-módulos-de-apache)
+8. [Varios sitios en un mismo servidor (Virtual Hosts)](#apartado-8-varios-sitios-en-un-mismo-servidor-virtual-hosts)
+9. [Permisos y propietarios](#apartado-9-permisos-y-propietarios)
+10. [Conclusiones](#conclusiones)
+---
+
+<br>
+
 ## Apartado 1. Preparación del sistema
 
 Primero actualizamos la lista de paquetes y después instalamos las actualizaciones disponibles:
@@ -84,7 +101,7 @@ En mi caso estaba desactivado. El siguiente comando permite las conexiones del p
 ```bash
 sudo ufw allow 'Apache'
 ```
-❓**¿Qué diferencia hay entre los perfiles Apache, Apache Full y Apache Secure??**
+**❓¿Qué diferencia hay entre los perfiles Apache, Apache Full y Apache Secure?**
 
 | Perfil | Puertos | Función |
 |---|---|---|
@@ -249,7 +266,7 @@ Finalmente, desactivamos el módulo `status` y reininiciamos:
 sudo a2dismod status
 sudo systemctl restart apache2
 ```
-❓**¿Qué ocurre si desactivamos un módulo del que depende otro?**
+**❓¿Qué ocurre si desactivamos un módulo del que depende otro?**
 
 La función que depende de él puede dejar de funcionar o Apache puede avisar del problema. Por eso hay que comprobar las dependencias antes de desactivarlo.
 ## Apartado 8. Varios sitios en un mismo servidor (Virtual Hosts)
@@ -351,7 +368,7 @@ Cada una devolvió su mensaje de bienvenida.
 
 Al principio sitio1 mostraba el texto de sitio2 porque nos equivocamos al editar un `index.html`. Lo corregimos y las dos webs funcionaron.
 
-❓**¿Qué diferencia hay entre Virtual Hosts por nombre y por IP?**
+**❓¿Qué diferencia hay entre Virtual Hosts por nombre y por IP?**
 
 Los de **nombre** diferencian las webs mediante `ServerName`, aunque compartan IP y puerto. Los basados en **IP** utilizan direcciones distintas. Nosotros hemos usado los **basados en nombre**.
 ## Apartado 9. Permisos y propietarios
