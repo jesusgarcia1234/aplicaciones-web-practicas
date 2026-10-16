@@ -35,7 +35,8 @@ lsb_release -a
 ```
 En mi caso aparece **Ubuntu 24.04.5 LTS**.
 
-![Versión de Ubuntu](./Imagenes/Captura%20001%20aplicaciones.png)
+![Versión de Ubuntu](./Imagenes/Captura%20001%20aplicaciones.png)  
+[Volver al índice](#índice)
 ## Apartado 2. Instalación de Apache
 
 Una vez actualizado Ubuntu, instalamos Apache, que es el servidor encargado de responder a las peticiones de las páginas web:
@@ -58,7 +59,8 @@ Para verlos usamos este comando:
 ```bash
 grep -A 20 "Commandline: apt install apache2" /var/log/apt/history.log
 ```
-Y a mi me aparece `apache2-bin`, `apache2-data`, `apache2-utils`, `ssl-cert`, `libapr1t64`, `libaprutil1t64`, `libaprutil1-ldap`, `libaprutil1-dbd-sqlite3` y `liblua5.4-0`. Son archivos, librerías y herramientas instalados junto con Apache.
+Y a mi me aparece `apache2-bin`, `apache2-data`, `apache2-utils`, `ssl-cert`, `libapr1t64`, `libaprutil1t64`, `libaprutil1-ldap`, `libaprutil1-dbd-sqlite3` y `liblua5.4-0`. Son archivos, librerías y herramientas instalados junto con Apache.  
+[Volver al índice](#índice)
 ## Apartado 3. Comprobación del funcionamiento
 
 ### 3.1. Estado del servicio
@@ -107,7 +109,8 @@ sudo ufw allow 'Apache'
 |---|---|---|
 | Apache | 80 | Permite HTTP. |
 | Apache Full | 80 y 443 | Permite HTTP y HTTPS. |
-| Apache Secure | 443 | Permite HTTPS. |
+| Apache Secure | 443 | Permite HTTPS. |  
+[Volver al índice](#índice)
 ## Apartado 4. Comandos principales de administración
 
 | Comando | Función | Captura |
@@ -127,8 +130,8 @@ sudo ufw allow 'Apache'
 
 ❓**Cuándo conviene usar reload en lugar de restart?**
 
-Conviene usar `reload` cuando hacemos cambios en la configuración de Apache, ya que los aplica sin interrumpir las conexiones activas. En cambio, `restart` reinicia completamente el servicio y puede provocar una breve interrupción.
-
+Conviene usar `reload` cuando hacemos cambios en la configuración de Apache, ya que los aplica sin interrumpir las conexiones activas. En cambio, `restart` reinicia completamente el servicio y puede provocar una breve interrupción.  
+[Volver al índice](#índice)
 ## Apartado 5. Ficheros y directorios importantes
 
 Primero consultamos la estructura de Apache:
@@ -158,9 +161,10 @@ Después comprobamos los enlaces de los sitios activos:
 ```bash
 ls -l /etc/apache2/sites-enabled/
 ```
-**¿Por qué se usan enlaces simbólicos entre `available` y `enabled`?**
+**❓¿Por qué se usan enlaces simbólicos entre `available` y `enabled`?**
 
-Porque `available` guarda las configuraciones y `enabled` enlaza solo las que están activas. Así podemos activar o desactivar sitios sin borrar sus archivos originales.
+Porque `available` guarda las configuraciones y `enabled` enlaza solo las que están activas. Así podemos activar o desactivar sitios sin borrar sus archivos originales.  
+[Volver al índice](#índice)
 ## Apartado 6. Modificaciones típicas del servicio
 
 Antes de empezar hacemos una copia de seguridad de la configuración principal:
@@ -232,7 +236,8 @@ ErrorDocument 404 /error404.html
 ```
 Tras recargar Apache, probamos una dirección inexistente y apareció nuestro mensaje personalizado.
 
-![Error 404 personalizado](./Imagenes/Captura%20008%20apartado%206%20aplicaciones.png)
+![Error 404 personalizado](./Imagenes/Captura%20008%20apartado%206%20aplicaciones.png)  
+[Volver al índice](#índice)
 ## Apartado 7. Módulos de Apache
 
 Los **módulos** añaden funciones a Apache. Primero consultamos cuáles estaban cargados y cuáles teníamos disponibles:
@@ -268,7 +273,8 @@ sudo systemctl restart apache2
 ```
 **❓¿Qué ocurre si desactivamos un módulo del que depende otro?**
 
-La función que depende de él puede dejar de funcionar o Apache puede avisar del problema. Por eso hay que comprobar las dependencias antes de desactivarlo.
+La función que depende de él puede dejar de funcionar o Apache puede avisar del problema. Por eso hay que comprobar las dependencias antes de desactivarlo.  
+[Volver al índice](#índice)
 ## Apartado 8. Varios sitios en un mismo servidor (Virtual Hosts)
 
 Los **Virtual Hosts** permiten alojar varias webs en el mismo Apache. Creamos `sitio1.local` y `sitio2.local`.
@@ -370,7 +376,8 @@ Al principio sitio1 mostraba el texto de sitio2 porque nos equivocamos al editar
 
 **❓¿Qué diferencia hay entre Virtual Hosts por nombre y por IP?**
 
-Los de **nombre** diferencian las webs mediante `ServerName`, aunque compartan IP y puerto. Los basados en **IP** utilizan direcciones distintas. Nosotros hemos usado los **basados en nombre**.
+Los de **nombre** diferencian las webs mediante `ServerName`, aunque compartan IP y puerto. Los basados en **IP** utilizan direcciones distintas. Nosotros hemos usado los **basados en nombre**.  
+[Volver al índice](#índice)
 ## Apartado 9. Permisos y propietarios
 
 Primero comprobamos con qué usuario trabaja Apache y qué permisos tienen los archivos:
@@ -408,7 +415,7 @@ Por último restauramos los permisos del archivo:
 ```bash
 sudo chmod 644 /var/www/sitio1/index.html
 ```
-**¿Qué significan `755` y `644`?**
+**❓¿Qué significan `755` y `644`?**
 
 | Permisos | Propietario | Grupo y otros |
 |---|---|---|
@@ -417,9 +424,14 @@ sudo chmod 644 /var/www/sitio1/index.html
 
 En los directorios, ejecutar significa poder acceder a ellos.
 
-**¿Por qué no se debe utilizar `777`?** Porque todos los usuarios podrían modificar los archivos, lo cual es un riesgo de seguridad.
+**❓¿Por qué no se debe utilizar `777`?**   
+Porque todos los usuarios podrían modificar los archivos, lo cual es un riesgo de seguridad.
 
-**¿Por qué el contenido web no debe ser escribible por todos ni ejecutarse como root?** Porque hay que limitar los permisos de Apache para evitar cambios no autorizados. Un archivo puede pertenecer a `root` si Apache solo necesita leerlo; lo peligroso es darle privilegios innecesarios.
+**❓¿Por qué el contenido web no debe ser escribible por todos ni ejecutarse como root?**  
+Porque hay que limitar los permisos de Apache para evitar cambios no autorizados. Un archivo puede pertenecer a `root` si Apache solo necesita leerlo; lo peligroso es darle privilegios innecesarios.  
+[Volver al índice](#índice)
+
 ## Conclusiones
 
-En esta práctica hemos aprendido a instalar Apache, administrarlo y modificar su configuración. Lo que más nos ha servido ha sido crear **dos webs en el mismo servidor** mediante Virtual Hosts y comprobar cómo los permisos afectan al acceso. También solucionamos un error en el HTML de sitio1 y provocamos un **403** para localizarlo en los registros. Ahora entendemos mejor cómo funciona un servidor web y cómo revisar sus fallos.
+En esta práctica hemos aprendido a instalar Apache, administrarlo y modificar su configuración. Lo que más nos ha servido ha sido crear **dos webs en el mismo servidor** mediante Virtual Hosts y comprobar cómo los permisos afectan al acceso. También solucionamos un error en el HTML de sitio1 y provocamos un **403** para localizarlo en los registros. Ahora entendemos mejor cómo funciona un servidor web y cómo revisar sus fallos.  
+[Volver al índice](#índice)
