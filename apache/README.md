@@ -109,7 +109,8 @@ sudo ufw allow 'Apache'
 |---|---|---|
 | Apache | 80 | Permite HTTP. |
 | Apache Full | 80 y 443 | Permite HTTP y HTTPS. |
-| Apache Secure | 443 | Permite HTTPS. |  
+| Apache Secure | 443 | Permite HTTPS. |
+
 [Volver al índice](#índice)
 ## Apartado 4. Comandos principales de administración
 
