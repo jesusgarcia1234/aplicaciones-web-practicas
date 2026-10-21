@@ -20,7 +20,10 @@
 
 <br>
 <br>
-
+<br>
+<br>
+<br>
+<br>
 
 
 ## Apartado 1. Preparación del sistema
