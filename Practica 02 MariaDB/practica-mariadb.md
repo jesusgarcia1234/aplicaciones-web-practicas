@@ -19,14 +19,9 @@
 ---
 
 <br>
+<br>
 
-## Antes de empezar: ¿qué es una base de datos?
 
-Una **base de datos** permite almacenar información de forma organizada, normalmente mediante tablas con filas y columnas. **WordPress** la necesita para guardar usuarios, entradas, páginas, comentarios y la configuración de la web.
-
-**MariaDB** es el sistema que gestiona esos datos. Junto con Linux, Apache y PHP forma el entorno **LAMP**, que vamos a completar en esta práctica.
-
-[Volver al índice](#índice)
 
 ## Apartado 1. Preparación del sistema
 
