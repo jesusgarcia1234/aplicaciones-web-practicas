@@ -91,8 +91,7 @@ mariadb --version
 
 La instalación quedó en la versión **MariaDB 10.11.14**. El último `apt install` indicó que ya era la versión instalada más reciente.
 
-![Versión de MariaDB](./Imagenes/Captura%2002%20apartado%202.png)
-
+![Versión de MariaDB](./Imagenes/Captura%20002%20apartado%202.png)  
 [Volver al índice](#índice)
 
 ## Apartado 3. Comprobación del funcionamiento
