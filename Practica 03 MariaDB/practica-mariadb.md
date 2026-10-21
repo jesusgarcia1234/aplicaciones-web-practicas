@@ -25,10 +25,9 @@
 <br>
 <br>
 
-
 ## Apartado 1. Preparación del sistema
 
-Primero desactivamos los dos sitios virtuales que utilizamos en la práctica anterior y volvimos al sitio predeterminado de Apache:
+Primero desactivamos los dos sitios virtuales de la práctica anterior y volvemos a activar el sitio predeterminado de Apache:
 
 ```bash
 sudo a2dissite sitio1.conf sitio2.conf
@@ -38,16 +37,18 @@ sudo systemctl reload apache2
 
 `a2dissite` desactiva los sitios, `a2ensite` activa el predeterminado y `reload` aplica la configuración sin reiniciar completamente Apache.
 
-Después actualizamos la lista de paquetes e intentamos actualizar Ubuntu:
+Después actualizamos la lista de paquetes e instalamos las actualizaciones disponibles:
 
 ```bash
 sudo apt update
 sudo apt upgrade -y
 ```
 
-`update` consulta las versiones disponibles y `upgrade` actualiza los paquetes instalados. Durante este paso surgió un bloqueo por el proceso de actualizaciones automáticas `unattended-upgrade`, que explicamos en el apartado 2.
+`update` consulta las versiones disponibles y `upgrade` actualiza los paquetes instalados.
 
-Por último comprobamos si Apache seguía activo:
+Durante este paso tuve un problema porque el proceso de actualizaciones automáticas `unattended-upgrade` bloqueó el gestor de paquetes. Explico cómo lo solucioné en el apartado 2.
+
+Por último comprobamos si Apache sigue activo:
 
 ```bash
 systemctl is-active apache2
@@ -71,34 +72,37 @@ El parámetro `-y` acepta automáticamente la confirmación de instalación.
 
 ### Problema durante la instalación
 
-La instalación no pudo continuar al principio porque `unattended-upgrade` tenía bloqueado el gestor de paquetes. Comprobamos los procesos y los registros, y vimos que la actualización se había quedado en la fase de `needrestart`.
+Al principio no pude instalar MariaDB porque `unattended-upgrade` tenía bloqueado el gestor de paquetes. Revisé los procesos y los registros del sistema y descubrí que la actualización se había quedado atascada en `needrestart`.
 
-Tras comprobar que no había ningún proceso `dpkg` trabajando, cerramos los procesos bloqueados. Después apareció otro bloqueo relacionado con `debconf`, que también tuvimos que resolver. La instalación había quedado a medias, por lo que utilizamos:
+Después de comprobar que no había ningún proceso `dpkg` trabajando, cerré los procesos bloqueados. También tuve otro problema con `debconf`, que seguía bloqueando la instalación, así que tuve que cerrar los procesos que habían quedado activos.
+
+La instalación había quedado a medias, por lo que ejecuté:
 
 ```bash
 sudo dpkg --configure -a
 sudo apt --fix-broken install
 ```
 
-El primero termina de configurar los paquetes pendientes; el segundo repara las dependencias y consiguió completar la instalación de `mariadb-server` y sus complementos. No fue necesario reinstalar Ubuntu.
+Con el primer comando intenté terminar de configurar los paquetes pendientes y con el segundo conseguí reparar las dependencias y completar la instalación de `mariadb-server`. Finalmente pude solucionarlo sin reinstalar Ubuntu.
 
-Finalmente comprobamos que MariaDB estaba instalado:
+Una vez instalado, comprobamos la versión:
 
 ```bash
 sudo apt install mariadb-server -y
 mariadb --version
 ```
 
-La instalación quedó en la versión **MariaDB 10.11.14**. El último `apt install` indicó que ya era la versión instalada más reciente.
+En mi caso se instaló **MariaDB 10.11.14**. El último `apt install` me confirmó que ya tenía la versión más reciente disponible.
 
-![Versión de MariaDB](./Imagenes/Captura%20002%20apartado%202.png)  
+![Versión de MariaDB](./Imagenes/Captura%20002%20apartado%202.png)
+
 [Volver al índice](#índice)
 
 ## Apartado 3. Comprobación del funcionamiento
 
 ### 3.1. Estado del servicio
 
-Comprobamos que el servicio de MariaDB estaba funcionando:
+Comprobamos que el servicio de MariaDB está funcionando:
 
 ```bash
 sudo systemctl status mariadb
@@ -140,7 +144,7 @@ exit;
 
 ## Apartado 4. Comandos principales
 
-Probamos los principales comandos para administrar el servicio. En esta tabla se explica qué hace cada uno y se incluye la captura disponible junto al comando, como en la práctica anterior.
+Probamos los principales comandos para administrar el servicio. En esta tabla explicamos qué hace cada uno e incluimos su captura correspondiente.
 
 | Comando | Función | Captura |
 |---|---|---|
@@ -154,7 +158,7 @@ Probamos los principales comandos para administrar el servicio. En esta tabla se
 
 ## Apartado 5. ¿Qué pasa si MariaDB está parado?
 
-Primero detuvimos MariaDB para ver qué ocurre cuando una aplicación intenta conectarse a un servidor de bases de datos que no funciona:
+Primero detenemos MariaDB para comprobar qué ocurre cuando una aplicación intenta conectarse a una base de datos que no está funcionando:
 
 ```bash
 sudo systemctl stop mariadb
@@ -162,11 +166,11 @@ systemctl is-active mariadb
 sudo mariadb
 ```
 
-`is-active` debe mostrar `inactive`. Al intentar acceder con `sudo mariadb`, aparece un error de conexión como `ERROR 2002`, porque el servicio está parado.
+`is-active` muestra `inactive`. Al intentar acceder con `sudo mariadb`, aparece un error de conexión como `ERROR 2002`, porque el servicio está parado.
 
 ![Error de conexión con MariaDB detenido](./Imagenes/Captura%20006%20apartado%205.png)
 
-Después volvimos a iniciarlo y comprobamos que se había recuperado:
+Después volvemos a iniciar el servicio y comprobamos que funciona correctamente:
 
 ```bash
 sudo systemctl start mariadb
@@ -219,7 +223,7 @@ Estos son los paquetes instalados y sus funciones:
 
 ### 6.2. Comprobar los módulos
 
-Reiniciamos Apache y comprobamos que había cargado el módulo de PHP:
+Reiniciamos Apache y comprobamos que tiene cargado el módulo de PHP:
 
 ```bash
 sudo systemctl restart apache2
@@ -271,7 +275,7 @@ Permite que PHP se comunique con MariaDB o MySQL. Es necesario para que WordPres
 
 ## Apartado 7. Comprobación final
 
-Para terminar, comprobamos que Apache y MariaDB estaban activos:
+Para terminar, comprobamos que Apache y MariaDB están activos:
 
 ```bash
 systemctl is-active apache2 mariadb
@@ -298,9 +302,10 @@ Por último, la práctica pide crear una **instantánea de VirtualBox** para ten
 
 ## Conclusiones
 
-En esta práctica hemos completado el entorno LAMP instalando MariaDB y PHP sobre el servidor Ubuntu que ya tenía Apache. También comprobamos cómo detectar cuándo MariaDB está parado y cómo recuperar el servicio.
+En esta práctica completamos el entorno LAMP con la instalación de MariaDB y PHP sobre el servidor Ubuntu que ya tenía Apache. También aprendemos a detectar cuándo MariaDB está parado y cómo recuperar el servicio.
 
-Lo más complicado fue la instalación de MariaDB, porque una actualización automática se quedó bloqueada y dejó paquetes pendientes de configurar. Después de revisar los procesos y reparar las dependencias, pudimos completar la instalación sin tener que reinstalar Ubuntu. Con esto el servidor queda preparado para la siguiente práctica, en la que instalaremos WordPress.
+Lo más complicado para mí fue instalar MariaDB, ya que tuve un problema con las actualizaciones automáticas que bloqueó el gestor de paquetes. Tuve que revisar los procesos, detener los que estaban bloqueados y reparar las dependencias hasta que conseguí completar la instalación sin reinstalar Ubuntu.
+
+Con esta práctica dejamos el servidor preparado para instalar WordPress en la siguiente.
 
 [Volver al índice](#índice)
-
